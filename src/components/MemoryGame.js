@@ -10,9 +10,6 @@ import pink from "../images/pink.png";
 import yellow from "../images/yellow.png";
 import blank from "../images/blank.png";
 
-// inspo: https://github.com/olepetterkh91/memory-game/blob/master/src/components/MemoryGame.jsx
-// https://github.com/lundborgm/fuzzy-memory/blob/master/script.js
-
 const MemoryGame = () => {
   const blankCard = blank;
   const [images, setImages] = useState([
@@ -26,15 +23,15 @@ const MemoryGame = () => {
     yellow,
   ]);
 
+  // useStates
   const [cardsChosen, setCardsChosen] = useState([]);
   const [cardsChosenIds, setCardsChosenIds] = useState([]);
   const [points, setPoints] = useState(0);
   const [wrong, setWrong] = useState(0);
-
   const [openCards, setOpenCards] = useState([]);
   const [score, setScore] = useState([]);
 
-  //Creates the board, duplicates the cards,
+  // Creates the board, duplicates the cards,
   // runs shuffleArray with the duplicated images
   // and sets the shuffled deck to images
   function createBoard() {
@@ -43,7 +40,7 @@ const MemoryGame = () => {
     setImages(shuffledArray);
   }
 
-  // shuffles the array from imagesGenerated
+  // Shuffles the array from imagesGenerated
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -52,10 +49,8 @@ const MemoryGame = () => {
     return array;
   }
 
+  // activated on click on image
   function flipImage(image, index) {
-    // CHECK IF IMAGE IS SELECTED
-    console.log(image, index);
-
     if (cardsChosenIds?.length === 1 && cardsChosenIds[0] === index) {
       return;
     }
@@ -84,16 +79,6 @@ const MemoryGame = () => {
     return cardsChosenIds?.includes(index) || openCards?.includes(image);
   }
 
-  // Fisher-Yates shuffle algorithm
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    console.log(array);
-    return array;
-  }
-
   function startOver() {
     setCardsChosenIds([]);
     setCardsChosen([]);
@@ -109,28 +94,23 @@ const MemoryGame = () => {
   }, []);
 
   //Resets after om efter X antal poäng.
-  if (points == images.length) {
+  if (points === images.length) {
     // setTimeout(startOver, 700);
-    setTimeout(() => {
-      setScore("Conratulations you completed the game :)");
-    }, 500);
+    setScore("Conratulations you completed the game :)");
   }
 
   return (
     <div>
-      <Container className="container">
+      <Container className="container pt-4">
         <h2>Memory Game</h2>
         <Row className="d-flex align-items-center">
-          <Col>
-            {" "}
+          <Col xs={3}>
             <h3>Points: {points}</h3>
           </Col>
-          <Col>
-            {" "}
+          <Col xs={6}>
             <h3>Wrong guesses: {wrong}</h3>
           </Col>
-          <Col>
-            {" "}
+          <Col xs={3}>
             <Button
               style={{
                 backgroundColor: "rgb(15, 15, 15)",
