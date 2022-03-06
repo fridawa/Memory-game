@@ -93,10 +93,12 @@ const MemoryGame = () => {
     createBoard();
   }, []);
 
+  const text = "grattis";
   //Resets after om efter X antal poäng.
-  if (points === images.length) {
-    // setTimeout(startOver, 700);
-    setScore("Conratulations you completed the game :)");
+  if (points === 2) {
+    setTimeout(() => {
+      setScore(text);
+    }, 700);
   }
 
   return (
